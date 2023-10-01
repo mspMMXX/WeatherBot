@@ -28,15 +28,15 @@ class WordTagger {
     }
     
     // String Array - for citynames
-    func getCity(from text: String) -> [String] {
+    func getLocation(from text: String) -> [String] {
         let tags = tags(from: text, tagScheme: .nameTypeOrLexicalClass)
-        let cities = tags.map { $0.0 }
-        var cityList: [String] = []
+        let locations = tags.map { $0.0 }
+        var locationList: [String] = []
 
-        for eachCity in cities {
-            cityList.append(eachCity)
+        for eachtLocation in locations {
+            locationList.append(eachtLocation)
         }
-        return cityList
+        return locationList
     }
     
     //String Array - for adjectives

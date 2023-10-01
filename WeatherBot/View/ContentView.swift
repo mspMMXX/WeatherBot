@@ -43,13 +43,16 @@ struct ContentView: View {
                     let userMessage = Message(userName: "Markus", text: inputText, isFromUser: true)
                     conversation.addMessage(userMessage)
                     
-                    let nounTagger = WordTagger()
-                    let botresponse = BotResponse()
-                    
-                    /*let botMessage = Message(userName: "Bot", text: botresponse.botAnswer(keyWord: nounTagger.getNoun(from: inputText)), isFromUser: false)*/
-                    //conversation.addMessage(botMessage)
-                
-                    print(nounTagger.getCity(from: inputText))
+                    let wordTagger = WordTagger()
+                    //let botresponse = BotResponse()
+                    let weatherManager = WeatherManager()
+
+                    let locations = wordTagger.getLocation(from: inputText)
+                    for eachLocation in locations {
+                        //let botMessage = Message(userName: "bot", text: weatherManager.fetchWeather(from: eachLocation), isFromUser: false)
+                        weatherManager.fetchWeather(from: eachLocation)
+                        //conversation.addMessage(botMessage)
+                    }
                     
                     inputText = ""
                 } label: {
