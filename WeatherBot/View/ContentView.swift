@@ -11,7 +11,7 @@ import NaturalLanguage
 struct ContentView: View {
     
     @ObservedObject var conversation = Conversation()
-    @State var inputText: String?
+    @State var inputText: String = ""
     @State var conversationLocation: String?
     
     var body: some View {
@@ -31,7 +31,7 @@ struct ContentView: View {
             
             HStack {
                 
-                TextField("Nachricht", text: $inputText?)
+                TextField("Nachricht", text: $inputText)
                     .foregroundColor(.black)
                     .padding(8)
                     .background(Color(red: 230 / 255, green: 230 / 255, blue: 230 / 255))
@@ -45,11 +45,10 @@ struct ContentView: View {
                     let wordTagger = WordTagger()
                     let weatherManager = WeatherManager()
                     
-                    if let userInput = inputText {
-                        let userMessage = Message(name: "User", text: userInput, isFromUser: true)
+                        let userMessage = Message(name: "User", text: inputText, isFromUser: true)
                         conversation.addMessage(userMessage)
                         
-                        let locations = wordTagger.getLocation(from: userInput)
+                        let locations = wordTagger.getLocation(from: inputText)
                         
                         if !locations.isEmpty {
                             for eachLocation in locations {
@@ -57,7 +56,7 @@ struct ContentView: View {
                                 weatherManager.fetchWeather(from: eachLocation) { weatherData in
                                     if let weatherData = weatherData {
                                         let botRespnse = BotResponse(weatherData: weatherData)
-                                        let botMessage = Message(name: "WeatherBot", text: botRespnse.createBotResponse(from: userInput), isFromUser: false)
+                                        let botMessage = Message(name: "WeatherBot", text: botRespnse.createBotResponse(from: inputText), isFromUser: false)
                                         DispatchQueue.main.async {
                                             conversation.addMessage(botMessage)
                                             inputText = ""
@@ -75,7 +74,7 @@ struct ContentView: View {
                                 weatherManager.fetchWeather(from: safeLocation) { weatherData in
                                     if let weatherData = weatherData {
                                         let botRespnse = BotResponse(weatherData: weatherData)
-                                        let botMessage = Message(name: "WeatherBot", text: "\(botRespnse.createBotResponse(from: userInput)) Für ein präziseres Antwortverhalten bitte ich darum, Fragen in vollständigen Sätzen zu formulieren. Vielen Dank für Ihr Verständnis.", isFromUser: false)
+                                        let botMessage = Message(name: "WeatherBot", text: "\(botRespnse.createBotResponse(from: inputText)) Für ein präziseres Antwortverhalten bitte ich darum, Fragen in vollständigen Sätzen zu formulieren. Vielen Dank für Ihr Verständnis.", isFromUser: false)
                                         DispatchQueue.main.async {
                                             print("Jetzt")
                                             conversation.addMessage(botMessage)
@@ -95,7 +94,6 @@ struct ContentView: View {
                             conversation.addMessage(botMessage)
                             inputText = ""
                         }
-                    }
                 } label: {
                     Image(systemName: "paperplane.circle.fill")
                         .resizable()

@@ -68,7 +68,6 @@
 			isa = PBXGroup;
 			children = (
 				8EAEE2A02AC979C900C43248 /* WeatherBotApp.swift */,
-				8EAEE2C02AC97A8500C43248 /* Enums */,
 				8EAEE2C22AC97A9700C43248 /* CustomView */,
 				8EAEE2C12AC97A9100C43248 /* Model */,
 				8EAEE2C32AC97A9F00C43248 /* View */,
@@ -84,13 +83,6 @@
 				8EAEE2A72AC979C900C43248 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		8EAEE2C02AC97A8500C43248 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Enums;
 			sourceTree = "<group>";
 		};
 		8EAEE2C12AC97A9100C43248 /* Model */ = {
