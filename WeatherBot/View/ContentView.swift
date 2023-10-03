@@ -74,7 +74,7 @@ struct ContentView: View {
                                 weatherManager.fetchWeather(from: safeLocation) { weatherData in
                                     if let weatherData = weatherData {
                                         let botRespnse = BotResponse(weatherData: weatherData)
-                                        let botMessage = Message(name: "WeatherBot", text: "\(botRespnse.createBotResponse(from: inputText)) Für ein präziseres Antwortverhalten bitte ich darum, Fragen in vollständigen Sätzen zu formulieren. Vielen Dank für Ihr Verständnis.", isFromUser: false)
+                                        let botMessage = Message(name: "WeatherBot", text: "\(botRespnse.createBotResponse(from: inputText)) Sollten Sie mit dem Ergebnis nicht zufrieden sein, bitte ich Sie, einen genauen Standort für präzisere Wetterinformationen anzugeben.", isFromUser: false)
                                         DispatchQueue.main.async {
                                             print("Jetzt")
                                             conversation.addMessage(botMessage)
@@ -90,7 +90,7 @@ struct ContentView: View {
                             print("conversationLocation: \(String(describing: conversationLocation))")
                             print("conversationLocation?.isEmpty: \(String(describing: conversationLocation?.isEmpty))")
 
-                            let botMessage = Message(name: "WeatherBot", text: "Um Ihnen präzise und hilfreiche Antworten bieten zu können, bitte ich um die Formulierung Ihrer Fragen in vollständigen Sätzen und um eine sorgfältige Rechtschreibprüfung. Herzlichen Dank für Ihr Verständnis.", isFromUser: false)
+                            let botMessage = Message(name: "WeatherBot", text: "Leider konnte ich keine Wetterdaten für Ihre Anfrage finden. Für eine genauere Wetterinformation bitte ich um die Bekanntgabe des spezifischen Standortes und der Wetterinformation, die Sie interessiert. Vielen Dank.", isFromUser: false)
                             conversation.addMessage(botMessage)
                             inputText = ""
                         }

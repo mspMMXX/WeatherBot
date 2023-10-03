@@ -10,12 +10,17 @@ import NaturalLanguage
 
 class BotResponse {
     
+    /// Ermöglicht den Zugriff auf die decodierte Struktur der WeatherApi-Datem
     var weatherData: WeatherData
     
     init(weatherData: WeatherData) {
         self.weatherData = weatherData
     }
     
+    /// Erstellt eine passende Nachricht zur Anfrage des Users auf Basis der Übereinstimmung eines eingegebenen Textes
+    ///
+    ///  - Parameter text: Nimmt den Eingabetext des Users entgegen
+    ///  - Returns: Die Antwort vom Typ "String
     func createBotResponse (from text: String) -> String {
         
         let textLowerCase = text.lowercased()
@@ -55,7 +60,7 @@ class BotResponse {
         case _ where textLowerCase.contains("gesamt"): return "Aktuell weist \(weatherData.location.name) folgende Wetterdaten auf: Temperatur \(weatherData.current.temp_c) Grad, gefühlte Temperatur \(weatherData.current.feelslike_c) Grad, Windgeschwindigkeit \(weatherData.current.wind_kph) km/h aus Richtung \(weatherData.current.wind_dir), Niederschlag \(weatherData.current.precip_mm) mm pro Quadratmeter, Bewölkungsgrad \(weatherData.current.cloud) Prozent, UV-Index \(weatherData.current.uv)."
         case _ where textLowerCase.contains("übersicht"): return "Aktuell weist \(weatherData.location.name) folgende Wetterdaten auf: Temperatur \(weatherData.current.temp_c) Grad, gefühlte Temperatur \(weatherData.current.feelslike_c) Grad, Windgeschwindigkeit \(weatherData.current.wind_kph) km/h aus Richtung \(weatherData.current.wind_dir), Niederschlag \(weatherData.current.precip_mm) mm pro Quadratmeter, Bewölkungsgrad \(weatherData.current.cloud) Prozent, UV-Index \(weatherData.current.uv)."
         case _ where textLowerCase.contains("detail"): return "Aktuell weist \(weatherData.location.name) folgende Wetterdaten auf: Temperatur \(weatherData.current.temp_c) Grad, gefühlte Temperatur \(weatherData.current.feelslike_c) Grad, Windgeschwindigkeit \(weatherData.current.wind_kph) km/h aus Richtung \(weatherData.current.wind_dir), Niederschlag \(weatherData.current.precip_mm) mm pro Quadratmeter, Bewölkungsgrad \(weatherData.current.cloud) Prozent, UV-Index \(weatherData.current.uv)."
-        default: return "Ihre Frage konnte leider nicht interpretiert werden. Bitte spezifizieren Sie den Ort und die gewünschten Wetterinformationen."
+        default: return "Leider konnte ich keine Wetterdaten für Ihre Anfrage finden. Für eine genauere Wetterinformation bitte ich um die Bekanntgabe des spezifischen Standortes und der Wetterinformation, die Sie interessiert. Vielen Dank."
             
         }
     }

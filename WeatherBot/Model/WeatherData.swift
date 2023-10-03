@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Struktur zum speichern der API-Daten
 struct WeatherData: Decodable {
     let location: Location
     let current: Current
