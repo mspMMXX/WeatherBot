@@ -17,9 +17,6 @@
 		8EAEE2B52AC97A2000C43248 /* BotResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2B42AC97A2000C43248 /* BotResponse.swift */; };
 		8EAEE2B72AC97A3000C43248 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2B62AC97A3000C43248 /* Message.swift */; };
 		8EAEE2B92AC97A4000C43248 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2B82AC97A4000C43248 /* Conversation.swift */; };
-		8EAEE2BB2AC97A5500C43248 /* BotResponseWie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2BA2AC97A5500C43248 /* BotResponseWie.swift */; };
-		8EAEE2BD2AC97A6600C43248 /* BotResponseWann.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2BC2AC97A6600C43248 /* BotResponseWann.swift */; };
-		8EAEE2BF2AC97A7B00C43248 /* BotResponseWas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2BE2AC97A7B00C43248 /* BotResponseWas.swift */; };
 		8EE31DD22AC9ABD300BA1461 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE31DD12AC9ABD300BA1461 /* WeatherManager.swift */; };
 		8EE31DD42AC9C86400BA1461 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE31DD32AC9C86400BA1461 /* WeatherData.swift */; };
 /* End PBXBuildFile section */
@@ -36,9 +33,6 @@
 		8EAEE2B42AC97A2000C43248 /* BotResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotResponse.swift; sourceTree = "<group>"; };
 		8EAEE2B62AC97A3000C43248 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		8EAEE2B82AC97A4000C43248 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
-		8EAEE2BA2AC97A5500C43248 /* BotResponseWie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotResponseWie.swift; sourceTree = "<group>"; };
-		8EAEE2BC2AC97A6600C43248 /* BotResponseWann.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotResponseWann.swift; sourceTree = "<group>"; };
-		8EAEE2BE2AC97A7B00C43248 /* BotResponseWas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotResponseWas.swift; sourceTree = "<group>"; };
 		8EE31DD12AC9ABD300BA1461 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		8EE31DD32AC9C86400BA1461 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,9 +89,6 @@
 		8EAEE2C02AC97A8500C43248 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				8EAEE2BA2AC97A5500C43248 /* BotResponseWie.swift */,
-				8EAEE2BC2AC97A6600C43248 /* BotResponseWann.swift */,
-				8EAEE2BE2AC97A7B00C43248 /* BotResponseWas.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -204,12 +195,9 @@
 			files = (
 				8EAEE2B92AC97A4000C43248 /* Conversation.swift in Sources */,
 				8EAEE2B12AC97A0400C43248 /* MessageCellViewBot.swift in Sources */,
-				8EAEE2BF2AC97A7B00C43248 /* BotResponseWas.swift in Sources */,
 				8EAEE2B32AC97A1200C43248 /* WordTagger.swift in Sources */,
 				8EAEE2B52AC97A2000C43248 /* BotResponse.swift in Sources */,
-				8EAEE2BD2AC97A6600C43248 /* BotResponseWann.swift in Sources */,
 				8EE31DD22AC9ABD300BA1461 /* WeatherManager.swift in Sources */,
-				8EAEE2BB2AC97A5500C43248 /* BotResponseWie.swift in Sources */,
 				8EAEE2A32AC979C900C43248 /* ContentView.swift in Sources */,
 				8EAEE2A12AC979C900C43248 /* WeatherBotApp.swift in Sources */,
 				8EAEE2AF2AC979F300C43248 /* MessageCellViewUser.swift in Sources */,

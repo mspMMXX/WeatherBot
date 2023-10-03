@@ -37,7 +37,7 @@ struct MessageCellViewBot: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .foregroundColor(Color(red: 119 / 255, green: 152 / 255, blue: 191 / 255))
+                .foregroundColor(Color(red: 160 / 255, green: 120 / 255, blue: 130 / 255))
         )
         .padding(.trailing, 60)
         .padding(.leading)

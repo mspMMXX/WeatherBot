@@ -9,14 +9,13 @@ import Foundation
 
 class Message: Identifiable {
     
-    let botName: String = "Bot"
-    var userName: String
+    var name: String
     var text: String
     var isFromUser: Bool
     var date: String
     
-    init(userName: String, text: String, isFromUser: Bool) {
-        self.userName = userName
+    init(name: String, text: String, isFromUser: Bool) {
+        self.name = name
         self.text = text
         self.isFromUser = isFromUser
         

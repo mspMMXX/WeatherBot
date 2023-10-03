@@ -7,20 +7,20 @@
 
 import Foundation
 
-struct WeatherManager {
+class WeatherManager {
     
     let baseUrl = "https://api.weatherapi.com/v1"
     let currentweather = "/current.json?"
     let apiKey = "b2658801c7004c23b88134520230110"
     let language = "de"
     
-    func fetchWeather(from location: String) {
+    func fetchWeather(from location: String, completion: @escaping (WeatherData?) -> Void) {
         let urlAsString = baseUrl + currentweather + "key=" + apiKey + "&q=" + location + "&lang=" + language
         print(urlAsString)
-        performRequest(from: urlAsString)
+        performRequest(from: urlAsString, completion: completion)
     }
     
-    private func performRequest(from urlString: String) {
+    private func performRequest(from urlString: String, completion: @escaping (WeatherData?) -> Void) {
         //create URL-String
         guard let url = URL(string: urlString) else { return }
         //create urlSession
@@ -32,20 +32,20 @@ struct WeatherManager {
                 return
             }
             if let _data = data {
-                parseJson(from: _data)
+                self.parseJson(from: _data, completion: completion)
             }
         }
         task.resume()
     }
     
-    private func parseJson(from data: Data) {
+    private func parseJson(from data: Data, completion: @escaping (WeatherData?) -> Void) {
         let decoder = JSONDecoder()
         do {
             let decoderData = try decoder.decode(WeatherData.self, from: data)
-            print("In \(decoderData.location.name) ist es im Moment \(decoderData.current.condition.text), mit \(decoderData.current.temp_c) Grad Celsius.")
-            print(decoderData.location)
+            completion(decoderData)
         } catch {
             print(error)
+            completion(nil)
         }
     }
     

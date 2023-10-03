@@ -18,8 +18,14 @@ struct Location: Decodable {
 
 struct Current: Decodable {
     let temp_c: Double
+    let wind_kph: Double
+    let wind_dir: String
+    let precip_mm: Double
+    let humidity: Int
+    let cloud: Int
+    let feelslike_c: Double
+    let uv: Double
     let condition: Condition
-    
 }
 
 struct Condition: Decodable {

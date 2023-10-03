@@ -11,7 +11,8 @@ import NaturalLanguage
 struct ContentView: View {
     
     @ObservedObject var conversation = Conversation()
-    @State var inputText: String = ""
+    @State var inputText: String?
+    @State var conversationLocation: String?
     
     var body: some View {
         
@@ -19,16 +20,18 @@ struct ContentView: View {
             ScrollView {
                 ForEach (conversation.messageList, id: \.id) { message in
                     if message.isFromUser == true {
-                        MessageCellViewUser(nameTitle: message.userName, text: message.text)
+                        MessageCellViewUser(nameTitle: message.name, text: message.text)
+                            .id(message.id)
                     } else {
                         MessageCellViewBot(text: message.text)
+                            .id(message.id)
                     }
                 }
             }
             
             HStack {
                 
-                TextField("Nachricht", text: $inputText)
+                TextField("Nachricht", text: $inputText?)
                     .foregroundColor(.black)
                     .padding(8)
                     .background(Color(red: 230 / 255, green: 230 / 255, blue: 230 / 255))
@@ -39,22 +42,60 @@ struct ContentView: View {
                     .padding(.trailing, 5)
                 
                 Button {
-                    
-                    let userMessage = Message(userName: "Markus", text: inputText, isFromUser: true)
-                    conversation.addMessage(userMessage)
-                    
                     let wordTagger = WordTagger()
-                    //let botresponse = BotResponse()
                     let weatherManager = WeatherManager()
-
-                    let locations = wordTagger.getLocation(from: inputText)
-                    for eachLocation in locations {
-                        //let botMessage = Message(userName: "bot", text: weatherManager.fetchWeather(from: eachLocation), isFromUser: false)
-                        weatherManager.fetchWeather(from: eachLocation)
-                        //conversation.addMessage(botMessage)
-                    }
                     
-                    inputText = ""
+                    if let userInput = inputText {
+                        let userMessage = Message(name: "User", text: userInput, isFromUser: true)
+                        conversation.addMessage(userMessage)
+                        
+                        let locations = wordTagger.getLocation(from: userInput)
+                        
+                        if !locations.isEmpty {
+                            for eachLocation in locations {
+                                conversationLocation = eachLocation
+                                weatherManager.fetchWeather(from: eachLocation) { weatherData in
+                                    if let weatherData = weatherData {
+                                        let botRespnse = BotResponse(weatherData: weatherData)
+                                        let botMessage = Message(name: "WeatherBot", text: botRespnse.createBotResponse(from: userInput), isFromUser: false)
+                                        DispatchQueue.main.async {
+                                            conversation.addMessage(botMessage)
+                                            inputText = ""
+                                        }
+                                    }
+                                }
+                            }
+                        } else if locations.isEmpty && (conversationLocation != nil) {
+                            print("Zweiter Block")
+                            print("locations.isEmpty: \(locations.isEmpty)")
+                            print("conversationLocation: \(String(describing: conversationLocation))")
+                            print("conversationLocation?.isEmpty: \(String(describing: conversationLocation?.isEmpty))")
+
+                            if let safeLocation = conversationLocation {
+                                weatherManager.fetchWeather(from: safeLocation) { weatherData in
+                                    if let weatherData = weatherData {
+                                        let botRespnse = BotResponse(weatherData: weatherData)
+                                        let botMessage = Message(name: "WeatherBot", text: "\(botRespnse.createBotResponse(from: userInput)) Für ein präziseres Antwortverhalten bitte ich darum, Fragen in vollständigen Sätzen zu formulieren. Vielen Dank für Ihr Verständnis.", isFromUser: false)
+                                        DispatchQueue.main.async {
+                                            print("Jetzt")
+                                            conversation.addMessage(botMessage)
+                                            inputText = ""
+                                        }
+                                    }
+                                }
+                            }
+                            
+                        } else if locations.isEmpty && (conversationLocation == nil) {
+                            print("Dritter Block")
+                            print("locations.isEmpty: \(locations.isEmpty)")
+                            print("conversationLocation: \(String(describing: conversationLocation))")
+                            print("conversationLocation?.isEmpty: \(String(describing: conversationLocation?.isEmpty))")
+
+                            let botMessage = Message(name: "WeatherBot", text: "Um Ihnen präzise und hilfreiche Antworten bieten zu können, bitte ich um die Formulierung Ihrer Fragen in vollständigen Sätzen und um eine sorgfältige Rechtschreibprüfung. Herzlichen Dank für Ihr Verständnis.", isFromUser: false)
+                            conversation.addMessage(botMessage)
+                            inputText = ""
+                        }
+                    }
                 } label: {
                     Image(systemName: "paperplane.circle.fill")
                         .resizable()
