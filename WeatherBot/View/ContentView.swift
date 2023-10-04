@@ -13,13 +13,27 @@ struct ContentView: View {
     @ObservedObject var conversation = Conversation()
     @State var inputText: String = ""
     @State var conversationLocation: String?
+    let titleName: String = "WeatherBot"
     
     var body: some View {
         
         VStack {
+
+            Label(titleName, systemImage: "")
+                .ignoresSafeArea()
+                .frame(height: 30)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+            
+            Divider()
+                .colorInvert()
+            
             ScrollView {
+                
                 ScrollViewReader { proxy in
+                    
                     ForEach(conversation.messageList, id: \.id) { message in
+                        
                         if message.isFromUser {
                             MessageCellViewUser(nameTitle: message.name, text: message.text)
                                 .id(message.id)
@@ -37,7 +51,6 @@ struct ContentView: View {
                     }
                 }
             }
-            
             HStack {
                 
                 TextField("Nachricht", text: $inputText)
