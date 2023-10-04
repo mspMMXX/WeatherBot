@@ -18,13 +18,22 @@ struct ContentView: View {
         
         VStack {
             ScrollView {
-                ForEach (conversation.messageList, id: \.id) { message in
-                    if message.isFromUser == true {
-                        MessageCellViewUser(nameTitle: message.name, text: message.text)
-                            .id(message.id)
-                    } else {
-                        MessageCellViewBot(text: message.text)
-                            .id(message.id)
+                ScrollViewReader { proxy in
+                    ForEach(conversation.messageList, id: \.id) { message in
+                        if message.isFromUser {
+                            MessageCellViewUser(nameTitle: message.name, text: message.text)
+                                .id(message.id)
+                        } else {
+                            MessageCellViewBot(text: message.text)
+                                .id(message.id)
+                        }
+                    }
+                    .onChange(of: conversation.messageList.count) {
+                        if let lastMessage = conversation.messageList.last {
+                            withAnimation {
+                                proxy.scrollTo(lastMessage.id, anchor: .bottom)
+                            }
+                        }
                     }
                 }
             }
@@ -46,7 +55,7 @@ struct ContentView: View {
                     let weatherManager = WeatherManager()
                     
                         let userMessage = Message(name: "User", text: inputText, isFromUser: true)
-                        conversation.addMessage(userMessage)
+                    conversation.addMessage(message: userMessage)
                         
                         let locations = wordTagger.getLocation(from: inputText)
                         
@@ -58,17 +67,13 @@ struct ContentView: View {
                                         let botRespnse = BotResponse(weatherData: weatherData)
                                         let botMessage = Message(name: "WeatherBot", text: botRespnse.createBotResponse(from: inputText), isFromUser: false)
                                         DispatchQueue.main.async {
-                                            conversation.addMessage(botMessage)
+                                            conversation.addMessage(message: botMessage)
                                             inputText = ""
                                         }
                                     }
                                 }
                             }
                         } else if locations.isEmpty && (conversationLocation != nil) {
-                            print("Zweiter Block")
-                            print("locations.isEmpty: \(locations.isEmpty)")
-                            print("conversationLocation: \(String(describing: conversationLocation))")
-                            print("conversationLocation?.isEmpty: \(String(describing: conversationLocation?.isEmpty))")
 
                             if let safeLocation = conversationLocation {
                                 weatherManager.fetchWeather(from: safeLocation) { weatherData in
@@ -76,8 +81,7 @@ struct ContentView: View {
                                         let botRespnse = BotResponse(weatherData: weatherData)
                                         let botMessage = Message(name: "WeatherBot", text: "\(botRespnse.createBotResponse(from: inputText)) Sollten Sie mit dem Ergebnis nicht zufrieden sein, bitte ich Sie, einen genauen Standort für präzisere Wetterinformationen anzugeben.", isFromUser: false)
                                         DispatchQueue.main.async {
-                                            print("Jetzt")
-                                            conversation.addMessage(botMessage)
+                                            conversation.addMessage(message: botMessage)
                                             inputText = ""
                                         }
                                     }
@@ -85,13 +89,9 @@ struct ContentView: View {
                             }
                             
                         } else if locations.isEmpty && (conversationLocation == nil) {
-                            print("Dritter Block")
-                            print("locations.isEmpty: \(locations.isEmpty)")
-                            print("conversationLocation: \(String(describing: conversationLocation))")
-                            print("conversationLocation?.isEmpty: \(String(describing: conversationLocation?.isEmpty))")
-
+                            
                             let botMessage = Message(name: "WeatherBot", text: "Leider konnte ich keine Wetterdaten für Ihre Anfrage finden. Für eine genauere Wetterinformation bitte ich um die Bekanntgabe des spezifischen Standortes und der Wetterinformation, die Sie interessiert. Vielen Dank.", isFromUser: false)
-                            conversation.addMessage(botMessage)
+                            conversation.addMessage(message: botMessage)
                             inputText = ""
                         }
                 } label: {
