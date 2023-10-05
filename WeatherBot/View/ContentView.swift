@@ -12,7 +12,6 @@ struct ContentView: View {
     
     @ObservedObject var conversation = Conversation()
     @State var inputText: String = ""
-    @State var conversationLocation: String?
     let titleName: String = "WeatherBot"
     
     var body: some View {
@@ -73,7 +72,6 @@ struct ContentView: View {
                     
                     if !locations.isEmpty {
                         for eachLocation in locations {
-                            conversationLocation = eachLocation
                             weatherManager.fetchWeather(from: eachLocation) { weatherData in
                                 if let weatherData = weatherData {
                                     let botRespnse = BotResponse(weatherData: weatherData)
@@ -85,23 +83,9 @@ struct ContentView: View {
                                 }
                             }
                         }
-                    } else if locations.isEmpty && (conversationLocation != nil) {
+                    } else if locations.isEmpty {
                         
-                        if let safeLocation = conversationLocation {
-                            weatherManager.fetchWeather(from: safeLocation) { weatherData in
-                                if let weatherData = weatherData {
-                                    let botRespnse = BotResponse(weatherData: weatherData)
-                                    let botMessage = Message(name: "WeatherBot", text: "\(botRespnse.createBotResponse(from: userInput)) Sollten Sie mit dem Ergebnis nicht zufrieden sein, bitte ich Sie, einen genauen Standort für präzisere Wetterinformationen anzugeben.", isFromUser: false)
-                                    DispatchQueue.main.async {
-                                        conversation.addMessage(message: botMessage)
-                                    }
-                                }
-                            }
-                        }
-                        
-                    } else if locations.isEmpty && (conversationLocation == nil) {
-                        
-                        let botMessage = Message(name: "WeatherBot", text: "Würden Sie so freundlich sein, Ihre Anfrage in einem Satz zu artikulieren?", isFromUser: false)
+                        let botMessage = Message(name: "WeatherBot", text: "Würden Sie so freundlich sein, Ihre Anfrage in einem Satz zu artikulieren und den genauen Standort zu nennen?", isFromUser: false)
                         conversation.addMessage(message: botMessage)
                     }
                     
