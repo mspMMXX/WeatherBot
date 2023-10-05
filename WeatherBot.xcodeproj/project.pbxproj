@@ -13,7 +13,7 @@
 		8EAEE2A82AC979C900C43248 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EAEE2A72AC979C900C43248 /* Preview Assets.xcassets */; };
 		8EAEE2AF2AC979F300C43248 /* MessageCellViewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2AE2AC979F300C43248 /* MessageCellViewUser.swift */; };
 		8EAEE2B12AC97A0400C43248 /* MessageCellViewBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2B02AC97A0400C43248 /* MessageCellViewBot.swift */; };
-		8EAEE2B32AC97A1200C43248 /* WordTagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2B22AC97A1200C43248 /* WordTagger.swift */; };
+		8EAEE2B32AC97A1200C43248 /* LocationTagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2B22AC97A1200C43248 /* LocationTagger.swift */; };
 		8EAEE2B52AC97A2000C43248 /* BotResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2B42AC97A2000C43248 /* BotResponse.swift */; };
 		8EAEE2B72AC97A3000C43248 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2B62AC97A3000C43248 /* Message.swift */; };
 		8EAEE2B92AC97A4000C43248 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAEE2B82AC97A4000C43248 /* Conversation.swift */; };
@@ -29,7 +29,7 @@
 		8EAEE2A72AC979C900C43248 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8EAEE2AE2AC979F300C43248 /* MessageCellViewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellViewUser.swift; sourceTree = "<group>"; };
 		8EAEE2B02AC97A0400C43248 /* MessageCellViewBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellViewBot.swift; sourceTree = "<group>"; };
-		8EAEE2B22AC97A1200C43248 /* WordTagger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTagger.swift; sourceTree = "<group>"; };
+		8EAEE2B22AC97A1200C43248 /* LocationTagger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTagger.swift; sourceTree = "<group>"; };
 		8EAEE2B42AC97A2000C43248 /* BotResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotResponse.swift; sourceTree = "<group>"; };
 		8EAEE2B62AC97A3000C43248 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		8EAEE2B82AC97A4000C43248 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
@@ -48,6 +48,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E3119FF2ACEAA34008C1A45 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				8EE31DD12AC9ABD300BA1461 /* WeatherManager.swift */,
+				8EE31DD32AC9C86400BA1461 /* WeatherData.swift */,
+				8EAEE2B22AC97A1200C43248 /* LocationTagger.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		8EAEE2942AC979C900C43248 = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +79,7 @@
 			children = (
 				8EAEE2A02AC979C900C43248 /* WeatherBotApp.swift */,
 				8EAEE2C22AC97A9700C43248 /* CustomView */,
+				8E3119FF2ACEAA34008C1A45 /* Data */,
 				8EAEE2C12AC97A9100C43248 /* Model */,
 				8EAEE2C32AC97A9F00C43248 /* View */,
 				8EAEE2A42AC979C900C43248 /* Assets.xcassets */,
@@ -90,10 +101,7 @@
 			children = (
 				8EAEE2B82AC97A4000C43248 /* Conversation.swift */,
 				8EAEE2B62AC97A3000C43248 /* Message.swift */,
-				8EE31DD32AC9C86400BA1461 /* WeatherData.swift */,
 				8EAEE2B42AC97A2000C43248 /* BotResponse.swift */,
-				8EAEE2B22AC97A1200C43248 /* WordTagger.swift */,
-				8EE31DD12AC9ABD300BA1461 /* WeatherManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -187,7 +195,7 @@
 			files = (
 				8EAEE2B92AC97A4000C43248 /* Conversation.swift in Sources */,
 				8EAEE2B12AC97A0400C43248 /* MessageCellViewBot.swift in Sources */,
-				8EAEE2B32AC97A1200C43248 /* WordTagger.swift in Sources */,
+				8EAEE2B32AC97A1200C43248 /* LocationTagger.swift in Sources */,
 				8EAEE2B52AC97A2000C43248 /* BotResponse.swift in Sources */,
 				8EE31DD22AC9ABD300BA1461 /* WeatherManager.swift in Sources */,
 				8EAEE2A32AC979C900C43248 /* ContentView.swift in Sources */,

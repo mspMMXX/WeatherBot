@@ -17,13 +17,12 @@ class LocationTagger {
     /// - Returns: Ein Array von Tupeln, bestehend aus einem Wort und seinem dazugehörigen Tag
     private func tags(from text: String, tagScheme: NLTagScheme) -> [(String, NLTag)] {
         
+        var lastTagWasPlaceName = false
+        var lastPlaceName = ""
         var tags: [(String, NLTag)] = []
         let tagger = NLTagger(tagSchemes: [tagScheme])
         tagger.setLanguage(.german, range: text.startIndex..<text.endIndex)
         tagger.string = text
-        
-        var lastTagWasPlaceName = false
-        var lastPlaceName = ""
         
         tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: tagScheme, options: [.omitPunctuation, .omitWhitespace]) { tag, tokenRange in
             
