@@ -18,15 +18,12 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-
+            
             Label(titleName, systemImage: "")
                 .ignoresSafeArea()
                 .frame(height: 30)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-            
-            Divider()
-                .colorInvert()
             
             ScrollView {
                 
@@ -66,47 +63,48 @@ struct ContentView: View {
                 Button {
                     let wordTagger = WordTagger()
                     let weatherManager = WeatherManager()
+                    let userInput = inputText
                     
-                        let userMessage = Message(name: "User", text: inputText, isFromUser: true)
+                    let userMessage = Message(name: "User", text: userInput, isFromUser: true)
                     conversation.addMessage(message: userMessage)
-                        
-                        let locations = wordTagger.getLocation(from: inputText)
-                        
-                        if !locations.isEmpty {
-                            for eachLocation in locations {
-                                conversationLocation = eachLocation
-                                weatherManager.fetchWeather(from: eachLocation) { weatherData in
-                                    if let weatherData = weatherData {
-                                        let botRespnse = BotResponse(weatherData: weatherData)
-                                        let botMessage = Message(name: "WeatherBot", text: botRespnse.createBotResponse(from: inputText), isFromUser: false)
-                                        DispatchQueue.main.async {
-                                            conversation.addMessage(message: botMessage)
-                                            inputText = ""
-                                        }
+                    inputText = ""
+                    
+                    let locations = wordTagger.getLocation(from: userInput)
+                    
+                    if !locations.isEmpty {
+                        for eachLocation in locations {
+                            conversationLocation = eachLocation
+                            weatherManager.fetchWeather(from: eachLocation) { weatherData in
+                                if let weatherData = weatherData {
+                                    let botRespnse = BotResponse(weatherData: weatherData)
+                                    let botMessage = Message(name: "WeatherBot", text: botRespnse.createBotResponse(from: userInput), isFromUser: false)
+                                    
+                                    DispatchQueue.main.async {
+                                        conversation.addMessage(message: botMessage)
                                     }
                                 }
                             }
-                        } else if locations.isEmpty && (conversationLocation != nil) {
-
-                            if let safeLocation = conversationLocation {
-                                weatherManager.fetchWeather(from: safeLocation) { weatherData in
-                                    if let weatherData = weatherData {
-                                        let botRespnse = BotResponse(weatherData: weatherData)
-                                        let botMessage = Message(name: "WeatherBot", text: "\(botRespnse.createBotResponse(from: inputText)) Sollten Sie mit dem Ergebnis nicht zufrieden sein, bitte ich Sie, einen genauen Standort für präzisere Wetterinformationen anzugeben.", isFromUser: false)
-                                        DispatchQueue.main.async {
-                                            conversation.addMessage(message: botMessage)
-                                            inputText = ""
-                                        }
-                                    }
-                                }
-                            }
-                            
-                        } else if locations.isEmpty && (conversationLocation == nil) {
-                            
-                            let botMessage = Message(name: "WeatherBot", text: "Leider konnte ich keine Wetterdaten für Ihre Anfrage finden. Für eine genauere Wetterinformation bitte ich um die Bekanntgabe des spezifischen Standortes und der Wetterinformation, die Sie interessiert. Vielen Dank.", isFromUser: false)
-                            conversation.addMessage(message: botMessage)
-                            inputText = ""
                         }
+                    } else if locations.isEmpty && (conversationLocation != nil) {
+                        
+                        if let safeLocation = conversationLocation {
+                            weatherManager.fetchWeather(from: safeLocation) { weatherData in
+                                if let weatherData = weatherData {
+                                    let botRespnse = BotResponse(weatherData: weatherData)
+                                    let botMessage = Message(name: "WeatherBot", text: "\(botRespnse.createBotResponse(from: userInput)) Sollten Sie mit dem Ergebnis nicht zufrieden sein, bitte ich Sie, einen genauen Standort für präzisere Wetterinformationen anzugeben.", isFromUser: false)
+                                    DispatchQueue.main.async {
+                                        conversation.addMessage(message: botMessage)
+                                    }
+                                }
+                            }
+                        }
+                        
+                    } else if locations.isEmpty && (conversationLocation == nil) {
+                        
+                        let botMessage = Message(name: "WeatherBot", text: "Würden Sie so freundlich sein, Ihre Anfrage in einem Satz zu artikulieren?", isFromUser: false)
+                        conversation.addMessage(message: botMessage)
+                    }
+                    
                 } label: {
                     Image(systemName: "paperplane.circle.fill")
                         .resizable()

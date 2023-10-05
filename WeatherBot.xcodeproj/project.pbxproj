@@ -90,10 +90,10 @@
 			children = (
 				8EAEE2B82AC97A4000C43248 /* Conversation.swift */,
 				8EAEE2B62AC97A3000C43248 /* Message.swift */,
+				8EE31DD32AC9C86400BA1461 /* WeatherData.swift */,
 				8EAEE2B42AC97A2000C43248 /* BotResponse.swift */,
 				8EAEE2B22AC97A1200C43248 /* WordTagger.swift */,
 				8EE31DD12AC9ABD300BA1461 /* WeatherManager.swift */,
-				8EE31DD32AC9C86400BA1461 /* WeatherData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
