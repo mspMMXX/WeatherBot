@@ -8,7 +8,7 @@
 import Foundation
 import NaturalLanguage
 
-class WordTagger {
+class LocationTagger {
     
     /// Ermittelt die Tags nach einem eingegebenen Text auf Basis eines festgelegten Schemas
     ///
