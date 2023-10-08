@@ -12,7 +12,7 @@ class WeatherManager {
     
     ///Daten für die Verbindung zur API
     let baseUrl = "https://api.weatherapi.com/v1"
-    let currentweather = "/current.json?"
+    let currentweatherUrl = "/current.json?"
     let apiKey = "b2658801c7004c23b88134520230110"
     let language = "de"
     
@@ -22,7 +22,7 @@ class WeatherManager {
     /// - Parameter completion: Ein Completion-Handler, der bei erfolgreicher oder fehlgeschlagener Abfrage aufgerufen wird.
     func fetchWeather(from location: String, completion: @escaping (WeatherData?) -> Void) {
         
-        let urlAsString = baseUrl + currentweather + "key=" + apiKey + "&q=" + location + "&lang=" + language
+        let urlAsString = baseUrl + currentweatherUrl + "key=" + apiKey + "&q=" + location + "&lang=" + language
         performRequest(from: urlAsString, completion: completion)
     }
     

@@ -31,7 +31,7 @@ struct ContentView: View {
                     /// Durchlauf aller Nachrichten in conversation
                     ForEach(conversation.messageList, id: \.id) { message in
                         if message.isFromUser {
-                            MessageCellViewUser(nameTitle: message.name, text: message.text)
+                            MessageCellViewUser(nameTitle: message.author, text: message.text)
                                 .id(message.id)
                         } else {
                             MessageCellViewBot(text: message.text)
@@ -85,7 +85,7 @@ struct ContentView: View {
         let weatherManager = WeatherManager()
         let userInput = inputText
         
-        let userMessage = Message(name: "User", text: userInput, isFromUser: true)
+        let userMessage = Message(author: "User", text: userInput, isFromUser: true)
         conversation.addMessage(message: userMessage)
         inputText = ""
         
@@ -96,7 +96,7 @@ struct ContentView: View {
                 weatherManager.fetchWeather(from: eachLocation) { weatherData in
                     if let weatherData = weatherData {
                         let botRespnse = BotResponse(weatherData: weatherData)
-                        let botMessage = Message(name: "WeatherBot", text: botRespnse.createBotResponse(from: userInput), isFromUser: false)
+                        let botMessage = Message(author: "WeatherBot", text: botRespnse.createBotResponse(from: userInput), isFromUser: false)
                         
                         DispatchQueue.main.async {
                             conversation.addMessage(message: botMessage)
@@ -106,7 +106,7 @@ struct ContentView: View {
             }
         } else if locations.isEmpty {
             
-            let botMessage = Message(name: "WeatherBot", text: "Würden Sie so freundlich sein, Ihre Anfrage in einem Satz zu artikulieren und den genauen Standort zu nennen?", isFromUser: false)
+            let botMessage = Message(author: "WeatherBot", text: "Würden Sie so freundlich sein, Ihre Anfrage in einem Satz zu artikulieren und den genauen Standort zu nennen? Leider kann ich Ihnen nicht zu jeden Standort Wetterinformationen bieten, da nicht jeder Ort seine Wetterdaten zu Verfügung stellt.", isFromUser: false)
             conversation.addMessage(message: botMessage)
         }
     }

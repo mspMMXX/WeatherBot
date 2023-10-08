@@ -9,14 +9,14 @@ import Foundation
 
 class Message: Identifiable {
     
-    var name: String
+    var author: String
     var text: String
     
     /// Gibt an ob die Nachricht vom User ist oder nicht. Entscheidet im weiteren ob MessageViewCellUser oder MessageCellViewBot im ContentView verwendet wird
     var isFromUser: Bool
     
-    init(name: String, text: String, isFromUser: Bool) {
-        self.name = name
+    init(author: String, text: String, isFromUser: Bool) {
+        self.author = author
         self.text = text
         self.isFromUser = isFromUser
     }
