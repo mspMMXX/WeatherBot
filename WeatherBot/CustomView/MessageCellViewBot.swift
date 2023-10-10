@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MessageCellViewBot: View {
     
-    private let botName: String = "Bot"
+    private let botName: String = "WeatherBot"
     var text: String
     
     var body: some View {

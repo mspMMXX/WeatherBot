@@ -12,13 +12,12 @@ struct ContentView: View {
     
     @ObservedObject var conversation = Conversation()
     @State var inputText: String = ""
-    let titleName: String = "WeatherBot"
     
     var body: some View {
         
         VStack {
             ///Titel
-            Label(titleName, systemImage: "")
+            Label("WeatherBot", systemImage: "")
                 .ignoresSafeArea()
                 .frame(height: 30)
                 .fontWeight(.bold)
@@ -106,7 +105,7 @@ struct ContentView: View {
             }
         } else if locations.isEmpty {
             
-            let botMessage = Message(author: "WeatherBot", text: "Würden Sie so freundlich sein, Ihre Anfrage in einem Satz zu artikulieren und den genauen Standort zu nennen? Leider kann ich Ihnen nicht zu jeden Standort Wetterinformationen bieten, da nicht jeder Ort seine Wetterdaten zu Verfügung stellt.", isFromUser: false)
+            let botMessage = Message(author: "WeatherBot", text: "Ich verstehe Ihre Frage leider nicht. Sie können mich gerne nach aktuellen Wetterdaten fragen. Nennen Sie dazu bitte den gewünschten Standort und die spezifischen Wetterinformationen, die Sie wissen möchten.", isFromUser: false)
             conversation.addMessage(message: botMessage)
         }
     }
