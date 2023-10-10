@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "weatherbot_icon_RZ.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
