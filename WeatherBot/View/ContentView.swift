@@ -67,10 +67,10 @@ struct ContentView: View {
                     Image(systemName: "paperplane.circle.fill")
                         .resizable()
                         .frame(width: 35, height: 35)
-                        .foregroundColor(.white)
+                        .foregroundColor(inputText.isEmpty ? .gray : .white)
                 }
                 .padding(.trailing, 20)
-                
+                .disabled(inputText.isEmpty ? true : false)
             }
             .padding(.top, 10)
             .background(Color(red: 33 / 255, green: 45 / 255, blue: 49 / 255))
