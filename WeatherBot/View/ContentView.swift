@@ -80,7 +80,7 @@ struct ContentView: View {
     
     /// Verarbeitet das Senden einer Nachricht
     func handleMessages() {
-        let wordTagger = LocationTagger()
+        let locationTagger = LocationTagger()
         let weatherManager = WeatherManager()
         let userInput = inputText
         
@@ -88,22 +88,20 @@ struct ContentView: View {
         conversation.addMessage(message: userMessage)
         inputText = ""
         
-        let locations = wordTagger.getLocation(from: userInput, tagScheme: .nameTypeOrLexicalClass)
+        let location = locationTagger.getLocation(from: userInput)
         
-        if !locations.isEmpty {
-            for eachLocation in locations {
-                weatherManager.fetchWeather(from: eachLocation) { weatherData in
-                    if let weatherData = weatherData {
-                        let botRespnse = BotResponse(weatherData: weatherData)
-                        let botMessage = Message(author: "WeatherBot", text: botRespnse.createBotResponse(from: userInput), isFromUser: false)
-                        
-                        DispatchQueue.main.async {
-                            conversation.addMessage(message: botMessage)
-                        }
+        if !location.isEmpty {
+            weatherManager.fetchWeather(from: location) { weatherData in
+                if let weatherData = weatherData {
+                    let botRespnse = BotResponse(weatherData: weatherData)
+                    let botMessage = Message(author: "WeatherBot", text: botRespnse.createBotResponse(from: userInput), isFromUser: false)
+                    
+                    DispatchQueue.main.async {
+                        conversation.addMessage(message: botMessage)
                     }
                 }
             }
-        } else if locations.isEmpty {
+        } else if location.isEmpty {
             
             let botMessage = Message(author: "WeatherBot", text: "Ich verstehe Ihre Frage leider nicht. Sie können mich gerne nach aktuellen Wetterdaten fragen. Nennen Sie dazu bitte den gewünschten Standort und die spezifischen Wetterinformationen, die Sie wissen möchten.", isFromUser: false)
             conversation.addMessage(message: botMessage)
