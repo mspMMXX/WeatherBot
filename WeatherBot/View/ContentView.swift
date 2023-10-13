@@ -88,7 +88,7 @@ struct ContentView: View {
         conversation.addMessage(message: userMessage)
         inputText = ""
         
-        let locations = wordTagger.getLocation(from: userInput)
+        let locations = wordTagger.getLocation(from: userInput, tagScheme: .nameTypeOrLexicalClass)
         
         if !locations.isEmpty {
             for eachLocation in locations {
