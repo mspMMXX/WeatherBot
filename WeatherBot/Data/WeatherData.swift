@@ -8,18 +8,18 @@
 import Foundation
 
 /// Struktur zum speichern der API-Daten
-struct WeatherData: Decodable {
+struct WeatherData: Codable {
     
     let location: Location
     let current: Current
 }
 
-struct Location: Decodable {
+struct Location: Codable {
     
     let name: String
 }
 
-struct Current: Decodable {
+struct Current: Codable {
     
     let temp_c: Double
     let wind_kph: Double
@@ -32,7 +32,7 @@ struct Current: Decodable {
     let condition: Condition
 }
 
-struct Condition: Decodable {
+struct Condition: Codable {
     
     let text: String
 }
