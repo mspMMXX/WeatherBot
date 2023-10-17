@@ -95,10 +95,7 @@ struct ContentView: View {
                 if let weatherData = weatherData {
                     let botRespnse = BotResponse(weatherData: weatherData)
                     let botMessage = Message(author: "WeatherBot", text: botRespnse.createBotResponse(from: userInput), isFromUser: false)
-                    
-                    DispatchQueue.main.async {
-                        conversation.addMessage(message: botMessage)
-                    }
+                    conversation.addMessage(message: botMessage)
                 }
             }
         } else if location.isEmpty {
